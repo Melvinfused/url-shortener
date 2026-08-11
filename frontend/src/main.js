@@ -38,7 +38,8 @@ form.addEventListener('submit', async (event) => {
 
     const url = urlInput.value
 
-    const response = await fetch('http://localhost:3000/api/shorten', {
+    const response = await fetch(
+    `${import.meta.env.VITE_SHORTENER_API_URL}/api/shorten`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

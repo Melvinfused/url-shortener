@@ -1,0 +1,39 @@
+services:
+  frontend:
+    build: ./frontend
+    image: ghcr.io/${GHCR_OWNER}/frontend:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+  
+
+  backend:
+    build: ./backend
+    image: ghcr.io/${GHCR_OWNER}/frontend:latest
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+    depends_on:
+      - redis
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: redis:latest
+
+volumes:
+  postgres_data:
