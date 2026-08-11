@@ -10,7 +10,7 @@ services:
 
   backend:
     build: ./backend
-    image: ghcr.io/${GHCR_OWNER}/frontend:latest
+    image: ghcr.io/${GHCR_OWNER}/backend:latest
     environment:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
