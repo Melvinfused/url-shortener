@@ -10,7 +10,7 @@ jobs:
         permissions:
             contents: read
             packages: write
-            
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
@@ -59,7 +59,8 @@ jobs:
                 echo "${{ secrets.VM_SSH_KEY }}" > ssh_key
                 chmod 600 ssh_key
 
-                ssh -i ssh_key \
+                ssh -p "${{ secrets.VM_PORT }}" \
+                -i ssh_key \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
                 "mkdir -p ~/url-shortener && cat > ~/url-shortener/.env <<EOF
                 GHCR_OWNER=$GHCR_OWNER
@@ -70,10 +71,12 @@ jobs:
                 REDIS_PORT=$REDIS_PORT
                 EOF"
 
-                scp -i ssh_key docker-compose.yml \
+                scp -P "${{ secrets.VM_PORT }}" \
+                -i ssh_key docker-compose.yml \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:~/url-shortener/docker-compose.yml
 
-                ssh -i ssh_key \
+                ssh -p "${{ secrets.VM_PORT }}" \
+                -i ssh_key \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
                 "cd ~/url-shortener && docker compose pull && docker compose up -d"
 
