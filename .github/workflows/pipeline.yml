@@ -50,7 +50,7 @@ jobs:
               uses: actions/checkout@v4
               with:
                 sparse-checkout: |
-                    docker-compose.yml
+                    compose.yml
                     backend/init.sql
                 sparse-checkout-cone-mode: false
                 
@@ -74,8 +74,8 @@ jobs:
 
                 scp -o StrictHostKeyChecking=no \
                 -P "${{ secrets.VM_PORT }}" \
-                -i ssh_key docker-compose.yml \
-                ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:~/url-shortener/docker-compose.yml
+                -i ssh_key compose.yml \
+                ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:~/url-shortener/compose.yml
 
                 ssh -o StrictHostKeyChecking=no \ 
                 -p "${{ secrets.VM_PORT }}" \
