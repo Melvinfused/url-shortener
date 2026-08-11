@@ -77,7 +77,7 @@ jobs:
                 -i ssh_key compose.yaml \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:~/url-shortener/compose.yaml
 
-                ssh -o StrictHostKeyChecking=no \ 
+                ssh -o StrictHostKeyChecking=no \
                 -p "${{ secrets.VM_PORT }}" \
                 -i ssh_key \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
