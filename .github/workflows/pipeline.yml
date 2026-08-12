@@ -15,6 +15,9 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
+            - name: Set VITE_SHORTENER_API_URL environment variable
+              run: echo "VITE_SHORTENER_API_URL=$(echo '${{ secrets.VITE_SHORTENER_API_URL }}')" >> "$GITHUB_ENV"
+
             - name: Set GHCR_OWNER environment variable
               run: echo "GHCR_OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
 

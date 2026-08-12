@@ -1,6 +1,9 @@
 services:
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+          VITE_SHORTENER_API_URL: ${VITE_SHORTENER_API_URL}
     image: ghcr.io/${GHCR_OWNER}/frontend:latest
     ports:
       - "80:80"
