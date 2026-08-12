@@ -4,6 +4,7 @@ services:
     image: ghcr.io/${GHCR_OWNER}/frontend:latest
     ports:
       - "80:80"
+    restart: unless-stopped
     depends_on:
       - backend
   
