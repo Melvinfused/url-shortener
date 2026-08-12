@@ -81,7 +81,7 @@ jobs:
                 -p "${{ secrets.VM_PORT }}" \
                 -i ssh_key \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
-                "mkdir -p ~/url-shortener/backend"
+                "rm -rf ~/url-shortener/backend && mkdir -p ~/url-shortener/backend"
 
                 scp -o StrictHostKeyChecking=no \
                 -P "${{ secrets.VM_PORT }}" \
