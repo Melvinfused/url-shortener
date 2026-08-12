@@ -81,6 +81,17 @@ jobs:
                 -p "${{ secrets.VM_PORT }}" \
                 -i ssh_key \
                 ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
+                "mkdir -p ~/url-shortener/backend"
+
+                scp -o StrictHostKeyChecking=no \
+                -P "${{ secrets.VM_PORT }}" \
+                -i ssh_key backend/init.sql \
+                ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }}:~/url-shortener/backend/init.sql
+
+                ssh -o StrictHostKeyChecking=no \
+                -p "${{ secrets.VM_PORT }}" \
+                -i ssh_key \
+                ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} \
                 "cd ~/url-shortener && docker compose pull && docker compose up -d"
 
             
